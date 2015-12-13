@@ -1,0 +1,16 @@
+#gameHolder{
+width:900;
+	margin: auto auto;
+}
+#gameHolder > #dynomite{
+	width:900;
+	margin: auto auto;
+}
+#countdownTimer > font{
+	color:red;
+	font-size:55px;
+	position: relative;
+	top:-360px;
+	right: -510px;
+    text-shadow: 0px 0px 30px red;
+}
