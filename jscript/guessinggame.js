@@ -1,6 +1,11 @@
 
 /* **** Global Variables **** */
 // try to elminate these global variables in your project, these are here just to start.
+//TODO: 1.the guesses are not initing correctly.
+// 2. the box needs to disabled when the game is over
+// 3. replay
+//
+
 var playersGuess,
     winningNumber,
     newgame=0,
@@ -17,7 +22,13 @@ $(document).ready(function(){initGame();});
 /* **** Guessing Game Functions **** */
 
 function initGame(){
-	checkGuess(0,0,totalalloedGuesses);
+	playersGuess='',
+    newgame=0,
+    totalalloedGuesses=5,
+    winningnumber=0,
+    guessedArray=[],
+    myinterval={};
+	checkGuess(0,0);
 	generateWinningNumber,
     newgame=0;
     winningnumber=generateWinningNumber(1,100);	
@@ -28,10 +39,17 @@ function initGame(){
     	playersGuessSubmission();
     });
     $("#hint").click(function(){provideHint()});
-    $("#replay").click(function(){console.log('replay')});
+    $("#replay").click(function(){initGame()});
     $("#guessinput").focus(function(){starttimer(82);playAudio('theme');});
     //  $("#replay").click(function(){console.log('replay')});
+    $('#guessinput').keypress(function(event){
+    if (event.keyCode == 10 || event.keyCode == 13){playersGuessSubmission();
+    event.preventDefault();
+    
+    } 
+    	
 
+  });
 }
 
 // Generate the Winning Number
@@ -47,7 +65,7 @@ function playersGuessSubmission(){
 	// add code here
    playersGuess =parseInt(document.getElementById('guessinput').value);
 	
-	checkGuess(playersGuess ,winningnumber,totalalloedGuesses);
+	checkGuess(playersGuess ,winningnumber);
   	document.getElementById('guessinput').value='';
    
 }
@@ -70,27 +88,29 @@ function lowerOrHigher(currentGuess,winningNumber){
 		return [relativepostion,rangDistance];
 
 }
-
 // Check if the Player's Guess is the winning number 
 
 function checkGuess(currentGuess,winningNumber ){
 	// add code here
-	console.log(guessedArray);
-	if((guessedArray.indexOf(currentGuess) > -1) || (currentGuess < 1) || (currentGuess > 100) || (isNaN(currentGuess) !== false)){return};
+	if((guessedArray.indexOf(currentGuess) > -1) || (currentGuess < 1) || (currentGuess > 100) || (isNaN(currentGuess) !== false)){
+		var guessString='';
+		for(var i=totalalloedGuesses;i > 0 ;i--){guessString+=' '+i}
+		document.getElementById('countMissestext').innerHTML=guessString;
+		return
+	};
 		console.log(currentGuess+' '+winningNumber+' '+totalalloedGuesses);
 	if(winningNumber === currentGuess){
 		var message="Lucky Guess, I'll get You next time. Scared to play again. Click I dare you!!";
 		document.getElementById('hinttext').innerHTML=message;
-		clearInterval(myinterval);
-		pauseAudio('theme');
+		endGame();
 		return;
 		}else{
 		var guessString='';
 		console.log(totalalloedGuesses);
+		totalalloedGuesses--
+		if(totalalloedGuesses === 0){endGame();}
 		for(var i=totalalloedGuesses;i > 0 ;i--){guessString+=' '+i}
 		document.getElementById('countMissestext').innerHTML=guessString;
-		totalalloedGuesses--
-
 	}
 		guessedArray.push(currentGuess);
 		if(guessedArray.length !== 0){guessMessage(currentGuess,winningNumber)};		
@@ -104,12 +124,12 @@ function provideHint(){
 		console.log('guessesLeft'+totalalloedGuesses);
 		var hintArray=[];
 		hintArray.push(winningnumber);
-		for(var i=0;i<totalalloedGuesses-1;i++){
+		for(var i=0;i<totalalloedGuesses*2;i++){
 			var tempNum=generateWinningNumber()
 			if(tempNum === winningnumber){i--}else{hintArray.push(tempNum);};	
 		}
 		hintArray.sort();
-		var message=hintArray;
+		var message='One of these number will save you '+hintArray+'. Pick one Chicken!!';
 		document.getElementById('hinttext').innerHTML=message;
 }
 
@@ -141,7 +161,7 @@ function playAgain(){
 			if(timerValue > 0){
 				timerValue--;
 				if(timerValue === 0){
-					pauseAudio('theme');
+					endGame();
 				}
 		}
 			},interv);
@@ -158,4 +178,9 @@ var pauseAudio=function(myAudio){
 return
 }
 //
+var endGame = function(){
+	pauseAudio('theme');
+	clearInterval(myinterval);
+		
+}
 /* **** Event Listeners/Handlers ****  */
