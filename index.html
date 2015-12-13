@@ -14,20 +14,21 @@
 <!-- a sitewide css reference -->
 <!-- an application specific css override file -->
 <body>
-	<audio controls autoplay preload="true">
+<audio preload="auto" controls id="theme">
  <source src="sounds/ticktickboom.mp3" type="audio/mpeg">
-
 </audio>
+
 <div id="gameHolder">
 	<img id="dynomite"  src="img/dynamite1-large.png">
-	<div class="sevenseg" id="countdownTimer"><font>03-44-00</font></div>
-	<div class="sevenseg" id="countMisses"><font>10 9 8 7 6 5 4 3 2 1 </font></div>
+	<div class="sevenseg" id="countdownTimer"><font  id="countdownText">00-00-00</font></div>
+	<div class="sevenseg" id="countMisses"><font id="countMissestext"></font></div>
 	<span id="title">TICK TICK BOOM</span>
 	<div id="usercontrols">
-		<input id="guessinput" type="text" value="100">	
-		<span  class="glyphicon glyphicon-play" ></span>
-		<span class="glyphicon glyphicon-question-sign" ></span>
-		<span class="glyphicon glyphicon-repeat" ></span>
+		<input id="guessinput" type="text"  >	
+		<span  class="glyphicon glyphicon-play" id="submitguess"></span>
+		<span class="glyphicon glyphicon-question-sign"  id="hint"></span>
+		<span class="glyphicon glyphicon-repeat"  id="replay"></span>
+		<div id="hinttext"></div>
 	</div>
 </div>
 

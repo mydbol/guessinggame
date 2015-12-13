@@ -52,3 +52,10 @@ margin-top:0px;
 	font-weight: normal;
 	font-style: italic;
 }
+#hinttext{
+	font-size: 18px;
+	width: 1107px;
+	position: relative;
+	top:-110px;
+	right: 215px;
+}
