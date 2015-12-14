@@ -53,7 +53,8 @@ function initGame(){
     console.log('winningNumber = '+winningnumber)
     checkGuess(0,winningnumber);
     document.getElementById('countdownText').innerHTML='00-00-00';
-	document.getElementById('hinttext').innerHTML='';
+	//document.getElementById('hinttext').innerHTML='';
+    document.getElementById('hinttext').innerHTML='Enter a number between 1 and 100 to defuss the bomb and save you life !';
 
     //  $("#replay").click(function(){console.log('replay')});
    

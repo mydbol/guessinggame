@@ -41,22 +41,24 @@ margin-top:0px;
 }
 #usercontrols{
 	position:relative;
-	top:-272px;
+	top: -238px;
 	left: 430px;
 	width: 287px;
 }
 #guessinput{
+	text-align: center;
 	font-size: 47px;
-	width: 107px;
+	width: 157px;
 	font-family: 'Segment7Standard';
 	font-weight: normal;
 	font-style: italic;
+	box-shadow: 5px 0px 0px #000s
 }
 #hinttext{
 	font-size: 20px;
 	width: 1107px;
 	position: relative;
-	top: -263px;
+	top: -413px;
 	right: -149px;
 }
 #hintbut{
