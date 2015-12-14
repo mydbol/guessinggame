@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Segment7Standard';
+        src: url('Segment7Standard.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+      }
+
+ /* The following rules are deprecated. */ 
+
+@font-face {
+    font-family: 'Segment7';
+        src: url('Segment7Standard.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+      }
