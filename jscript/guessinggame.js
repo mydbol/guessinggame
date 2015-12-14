@@ -17,32 +17,14 @@ var playersGuess,
 
 
 
-$(document).ready(function(){initGame();});
-
-/* **** Guessing Game Functions **** */
-
-function initGame(){
-	playersGuess='',
-    newgame=0,
-    totalalloedGuesses=5,
-    winningnumber=0,
-    guessedArray=[],
-    myinterval={};
-	checkGuess(0,0);
-	generateWinningNumber,
-    newgame=0;
-    winningnumber=generateWinningNumber(1,100);	
-    console.log('winningNumber = '+winningnumber)
-    checkGuess(0,winningnumber);
-		
-    $("#submitguess").click(function(){
+$(document).ready(function(){
+	$("#submitguess").click(function(){
     	playersGuessSubmission();
     });
     $("#hint").click(function(){provideHint()});
     $("#replay").click(function(){initGame()});
     $("#guessinput").focus(function(){starttimer(82);playAudio('theme');});
-    //  $("#replay").click(function(){console.log('replay')});
-    $('#guessinput').keypress(function(event){
+ $('#guessinput').keypress(function(event){
     if (event.keyCode == 10 || event.keyCode == 13){playersGuessSubmission();
     event.preventDefault();
     
@@ -50,6 +32,29 @@ function initGame(){
     	
 
   });
+	initGame();});
+
+/* **** Guessing Game Functions **** */
+
+function initGame(){
+	endGame();
+	playersGuess='',
+    newgame=0,
+    totalalloedGuesses=5,
+    winningnumber=0,
+    guessedArray=[],
+    myinterval={};
+	checkGuess(0,0);
+	generateWinningNumber
+    winningnumber=generateWinningNumber(1,100);	
+
+    console.log('winningNumber = '+winningnumber)
+    checkGuess(0,winningnumber);
+    document.getElementById('countdownText').innerHTML='00-00-00';
+	
+    
+    //  $("#replay").click(function(){console.log('replay')});
+   
 }
 
 // Generate the Winning Number
@@ -100,17 +105,17 @@ function checkGuess(currentGuess,winningNumber ){
 	};
 		console.log(currentGuess+' '+winningNumber+' '+totalalloedGuesses);
 	if(winningNumber === currentGuess){
-		var message="Lucky Guess, I'll get You next time. Scared to play again. Click I dare you!!";
-		document.getElementById('hinttext').innerHTML=message;
-		endGame();
-		return;
-		}else{
-		var guessString='';
-		console.log(totalalloedGuesses);
-		totalalloedGuesses--
-		if(totalalloedGuesses === 0){endGame();}
-		for(var i=totalalloedGuesses;i > 0 ;i--){guessString+=' '+i}
-		document.getElementById('countMissestext').innerHTML=guessString;
+			var message="Lucky Guess, I'll get You next time. Scared to play again. Click I dare you!!";
+			document.getElementById('hinttext').innerHTML=message;
+			endGame();
+			return;
+	}else{
+			var guessString='';
+			console.log(totalalloedGuesses);
+			totalalloedGuesses--
+			if(totalalloedGuesses === 0){endGame();}
+			for(var i=totalalloedGuesses;i > 0 ;i--){guessString+=' '+i}
+			document.getElementById('countMissestext').innerHTML=guessString;
 	}
 		guessedArray.push(currentGuess);
 		if(guessedArray.length !== 0){guessMessage(currentGuess,winningNumber)};		
@@ -177,10 +182,15 @@ var pauseAudio=function(myAudio){
 	document.getElementById(myAudio).pause();
 return
 }
+var resetAudio=function(myAudio){
+	document.getElementById(myAudio).currentTime=0;
+return
+}
 //
 var endGame = function(){
 	pauseAudio('theme');
+	resetAudio('theme');
 	clearInterval(myinterval);
-		
+	
 }
 /* **** Event Listeners/Handlers ****  */
