@@ -13,6 +13,7 @@ var playersGuess,
     winningnumber=0,
     guessedArray=[],
     myinterval
+    gameover=false
     ;		
 
 
@@ -21,8 +22,8 @@ $(document).ready(function(){
 	$("#submitguess").click(function(){
     	playersGuessSubmission();
     });
-    $("#hint").click(function(){provideHint()});
-    $("#replay").click(function(){initGame()});
+    $("#hintbut").click(function(){provideHint()});
+    $("#replaybut").click(function(){initGame()});
     $("#guessinput").focus(function(){starttimer(82);playAudio('theme');});
  $('#guessinput').keypress(function(event){
     if (event.keyCode == 10 || event.keyCode == 13){playersGuessSubmission();
@@ -40,6 +41,7 @@ function initGame(){
 	endGame();
 	playersGuess='',
     newgame=0,
+    gameover=false,
     totalalloedGuesses=5,
     winningnumber=0,
     guessedArray=[],
@@ -51,8 +53,8 @@ function initGame(){
     console.log('winningNumber = '+winningnumber)
     checkGuess(0,winningnumber);
     document.getElementById('countdownText').innerHTML='00-00-00';
-	
-    
+	document.getElementById('hinttext').innerHTML='';
+
     //  $("#replay").click(function(){console.log('replay')});
    
 }
@@ -146,6 +148,7 @@ function playAgain(){
 }
 // create count down timer	
 		 var starttimer=function(secondsAllowed){
+		 	var intervalPassed=0;
  		 	if(newgame > 0 ){return}
 		 	var multiplerFortime=100 		
 		 	var timerValue=secondsAllowed*multiplerFortime; // NUMBER OF SEC IN MILLISECONDS
@@ -163,6 +166,8 @@ function playAgain(){
 				if(seconds < 10){secondsDisplay='0'+seconds}else{secondsDisplay=seconds};
 				var milliseconds=(Math.floor((timerValue%10)));
 				document.getElementById('countdownText').innerHTML=minutesDisplay+'-'+secondsDisplay+'-0'+milliseconds;
+			intervalPassed++;
+			
 			if(timerValue > 0){
 				timerValue--;
 				if(timerValue === 0){
@@ -175,6 +180,7 @@ function playAgain(){
 
 
 var playAudio=function(myAudio){
+	if(gameover===true){return;}
 	document.getElementById(myAudio).play();
 return
 }
@@ -183,7 +189,7 @@ var pauseAudio=function(myAudio){
 return
 }
 var resetAudio=function(myAudio){
-	document.getElementById(myAudio).currentTime=0;
+	document.getElementById(myAudio).currentTime=9.7;
 return
 }
 //
@@ -191,6 +197,6 @@ var endGame = function(){
 	pauseAudio('theme');
 	resetAudio('theme');
 	clearInterval(myinterval);
-	
+	gameover=true;
 }
 /* **** Event Listeners/Handlers ****  */

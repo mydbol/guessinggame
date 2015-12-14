@@ -53,9 +53,42 @@ margin-top:0px;
 	font-style: italic;
 }
 #hinttext{
-	font-size: 18px;
+	font-size: 20px;
 	width: 1107px;
 	position: relative;
-	top:-110px;
-	right: 215px;
+	top: -263px;
+	right: -149px;
+}
+#hintbut{
+	z-index: 1000;
+	position: relative;
+	top: -670px;
+	left: 384px;
+	font-size: 30px;
+	color: rgba(255, 255, 192, .5);
+	width: 60px;
+}
+#replaybut{
+	    z-index: 1000;
+    position: relative;
+    top: -640px;
+    left: 384px;
+    font-size: 30px;
+    color: rgba(255, 255, 192, .6);
+    width: 60px;
+}
+#Wec{
+  z-index: -2;
+  width:400px;
+  position: relative;
+  top: -780px;
+  left: 504px;
+  -webkit-transform: rotate(25deg); /* Chrome, Safari, Opera */
+  
+}
+#Wecout{
+  transition
+  left: 704px;
+-webkit-transform: x(100px); /* Chrome, Safari, Opera */
+
 }
