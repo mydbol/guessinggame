@@ -19,7 +19,7 @@ var playersGuess,
 
 
 $(document).ready(function(){
-	$("#submitguess").click(function(){
+	$("#sendbut").click(function(){
     	playersGuessSubmission();
     });
     $("#hintbut").click(function(){provideHint()});
@@ -39,6 +39,10 @@ $(document).ready(function(){
 /* **** Guessing Game Functions **** */
 
 function initGame(){
+	document.getElementById('ht').style.visibility = "visible";
+		document.getElementById('rp').style.visibility = "visible";
+		document.getElementById('cdc').style.visibility = "visible";
+		document.getElementById('rg').style.visibility = "visible";
 	endGame();
 	try{
 	$("#Wec").removeClass("Wecout");
@@ -89,7 +93,7 @@ function guessMessage (currentGuess,winningNumber){
 	var guessInfo=lowerOrHigher(currentGuess,winningNumber);
     var relativepostion=guessInfo[0];
     var rangDistance=guessInfo[1];
-	var message="Your Guess  is "+relativepostion+" and within "+rangDistance+" of the number that will save your life";
+	var message="Your guess of "+currentGuess+" is "+relativepostion+" but within "+rangDistance+" of the number that will save your life";
 	console.log(message);
 	$('#hinttext').html(message);
 }
@@ -97,11 +101,16 @@ function guessMessage (currentGuess,winningNumber){
 
 function lowerOrHigher(currentGuess,winningNumber){
 	// add code here
-	if(currentGuess > winningNumber){var distance=currentGuess-winningNumber;var relativepostion='larger'}
-	if(currentGuess < winningNumber){var distance=winningNumber-currentGuess;var relativepostion='smaller'}
-	var rangDistance=(Math.ceil(distance / 10) * 10);
-		return [relativepostion,rangDistance];
-
+	if(currentGuess > winningNumber){var distance=currentGuess-winningNumber;var relativepostion='too BIG'}
+	if(currentGuess < winningNumber){var distance=winningNumber-currentGuess;var relativepostion='too SMALL'}
+	if(distance > 10){
+		var rangDistance=(Math.ceil(distance / 10) * 10);
+			return [relativepostion,rangDistance];
+	}else{
+		var rangDistance=(Math.ceil(distance / 5) * 5);
+			return [relativepostion,rangDistance];
+	
+	}
 }
 // Check if the Player's Guess is the winning number 
 
@@ -115,7 +124,7 @@ function checkGuess(currentGuess,winningNumber ){
 	};
 		console.log(currentGuess+' '+winningNumber+' '+totalalloedGuesses);
 	if(winningNumber === currentGuess){
-			var message="Lucky Guess, I'll get You next time. Scared to play again. Click I dare you!!";
+			var message="Lucky guess, I'll get You next time. Scared to play again. Click I dare you!!";
 			$('#hinttext').html(message);
 			endGame('win');
 			return;
@@ -156,6 +165,12 @@ function playAgain(){
 }
 // create count down timer	
 		 var starttimer=function(secondsAllowed){
+		//$(".label").hide();
+		document.getElementById('ht').style.visibility = "hidden";
+		document.getElementById('rp').style.visibility = "hidden";
+		document.getElementById('cdc').style.visibility = "hidden";
+		document.getElementById('rg').style.visibility = "hidden";
+
 		 	var intervalPassed=0;
  		 	if(newgame > 0 ){return}
 		 	var multiplerFortime=100 		
@@ -202,6 +217,9 @@ return
 }
 //
 var endGame = function(result){
+		
+
+	$(".label").show('slow');
 	pauseAudio('theme');
 	resetAudio('theme');
 	clearInterval(myinterval);
