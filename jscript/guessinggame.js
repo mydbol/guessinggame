@@ -25,6 +25,7 @@ $(document).ready(function(){
     $("#hintbut").click(function(){provideHint()});
     $("#replaybut").click(function(){initGame()});
     $("#guessinput").focus(function(){starttimer(82);playAudio('theme');});
+
  $('#guessinput').keypress(function(event){
     if (event.keyCode == 10 || event.keyCode == 13){playersGuessSubmission();
     event.preventDefault();
@@ -38,7 +39,8 @@ $(document).ready(function(){
 /* **** Guessing Game Functions **** */
 
 function initGame(){
-	endGame();
+	$("#Wec").removeClass("Wecout");
+
 	playersGuess='',
     newgame=0,
     gameover=false,
@@ -49,12 +51,12 @@ function initGame(){
 	checkGuess(0,0);
 	generateWinningNumber
     winningnumber=generateWinningNumber(1,100);	
-
+$("input").prop('disabled', false	);
     console.log('winningNumber = '+winningnumber)
     checkGuess(0,winningnumber);
-    document.getElementById('countdownText').innerHTML='00-00-00';
+    $('#countdownText').html('00-00-00');
 	//document.getElementById('hinttext').innerHTML='';
-    document.getElementById('hinttext').innerHTML='Enter a number between 1 and 100 to defuss the bomb and save you life !';
+    $('#hinttext').html('Enter a number between 1 and 100 to defuss the bomb and save you life !');
 
     //  $("#replay").click(function(){console.log('replay')});
    
@@ -72,10 +74,10 @@ function generateWinningNumber(min,max){
 function playersGuessSubmission(){
 	// add code here
    playersGuess =parseInt(document.getElementById('guessinput').value);
-	
+	$('#guessinput').val('');
+   	
 	checkGuess(playersGuess ,winningnumber);
-  	document.getElementById('guessinput').value='';
-   
+  
 }
 
 function guessMessage (currentGuess,winningNumber){
@@ -84,7 +86,7 @@ function guessMessage (currentGuess,winningNumber){
     var rangDistance=guessInfo[1];
 	var message="Your Guess  is "+relativepostion+" and within "+rangDistance+" of the number that will save your life";
 	console.log(message);
-	document.getElementById('hinttext').innerHTML=message;
+	$('#hinttext').html(message);
 }
 // Determine if the next guess should be a lower or higher number
 
@@ -103,13 +105,13 @@ function checkGuess(currentGuess,winningNumber ){
 	if((guessedArray.indexOf(currentGuess) > -1) || (currentGuess < 1) || (currentGuess > 100) || (isNaN(currentGuess) !== false)){
 		var guessString='';
 		for(var i=totalalloedGuesses;i > 0 ;i--){guessString+=' '+i}
-		document.getElementById('countMissestext').innerHTML=guessString;
+		$('#countMissestext').html(guessString);
 		return
 	};
 		console.log(currentGuess+' '+winningNumber+' '+totalalloedGuesses);
 	if(winningNumber === currentGuess){
 			var message="Lucky Guess, I'll get You next time. Scared to play again. Click I dare you!!";
-			document.getElementById('hinttext').innerHTML=message;
+			$('#hinttext').html(message);
 			endGame();
 			return;
 	}else{
@@ -118,7 +120,7 @@ function checkGuess(currentGuess,winningNumber ){
 			totalalloedGuesses--
 			if(totalalloedGuesses === 0){endGame();}
 			for(var i=totalalloedGuesses;i > 0 ;i--){guessString+=' '+i}
-			document.getElementById('countMissestext').innerHTML=guessString;
+			$('#countMissestext').html(guessString+'&nbsp;');
 	}
 		guessedArray.push(currentGuess);
 		if(guessedArray.length !== 0){guessMessage(currentGuess,winningNumber)};		
@@ -138,7 +140,7 @@ function provideHint(){
 		}
 		hintArray.sort();
 		var message='One of these number will save you '+hintArray+'. Pick one Chicken!!';
-		document.getElementById('hinttext').innerHTML=message;
+		$('#hinttext').html(message);
 }
 
 // Allow the "Player" to Play Again
@@ -166,7 +168,7 @@ function playAgain(){
 				var seconds=(Math.floor(timerValue/multiplerFortime)-(minutes*60));
 				if(seconds < 10){secondsDisplay='0'+seconds}else{secondsDisplay=seconds};
 				var milliseconds=(Math.floor((timerValue%10)));
-				document.getElementById('countdownText').innerHTML=minutesDisplay+'-'+secondsDisplay+'-0'+milliseconds;
+				$('#countdownText').html(minutesDisplay+'-'+secondsDisplay+'-0'+milliseconds);
 			intervalPassed++;
 			
 			if(timerValue > 0){
@@ -199,5 +201,8 @@ var endGame = function(){
 	resetAudio('theme');
 	clearInterval(myinterval);
 	gameover=true;
+	$("input").prop('disabled', true);
+	$("#Wec").addClass("Wecout");
+
 }
 /* **** Event Listeners/Handlers ****  */
