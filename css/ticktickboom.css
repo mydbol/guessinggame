@@ -102,7 +102,21 @@ margin-top:0px;
   -webkit-transform: rotate(25deg); /* Chrome, Safari, Opera */
 }
 .Wecout{
-	    transition-duration: 1s;
-	// -webkit-transform: rotate(25deg); /* Chrome, Safari, Opera */
+  transition-duration: 1s;
   transform: translate(210px,-150px) rotate(15deg);
 }
+.win{
+	transition-duration: 1s;
+	color:#fff;
+	z-index:1200;
+	position: relative;
+	top: -1043px;
+	left: 284px;
+	font-size: 0px;
+	text-shadow: 0px 0px 150px #000;
+	}
+	.winon{
+	font-size: 130px;
+	transition-duration: 1s;
+  	
+	}

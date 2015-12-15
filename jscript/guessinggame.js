@@ -39,8 +39,13 @@ $(document).ready(function(){
 /* **** Guessing Game Functions **** */
 
 function initGame(){
+	endGame();
+	try{
 	$("#Wec").removeClass("Wecout");
+	$("#win").removeClass("winon");
+	}catch(e){
 
+	}
 	playersGuess='',
     newgame=0,
     gameover=false,
@@ -112,7 +117,7 @@ function checkGuess(currentGuess,winningNumber ){
 	if(winningNumber === currentGuess){
 			var message="Lucky Guess, I'll get You next time. Scared to play again. Click I dare you!!";
 			$('#hinttext').html(message);
-			endGame();
+			endGame('win');
 			return;
 	}else{
 			var guessString='';
@@ -142,7 +147,7 @@ function provideHint(){
 		var message='One of these number will save you '+hintArray+'. Pick one Chicken!!';
 		$('#hinttext').html(message);
 }
-
+	
 // Allow the "Player" to Play Again
 
 function playAgain(){
@@ -174,7 +179,7 @@ function playAgain(){
 			if(timerValue > 0){
 				timerValue--;
 				if(timerValue === 0){
-					endGame();
+					endGame('lose');
 				}
 		}
 			},interv);
@@ -196,13 +201,17 @@ var resetAudio=function(myAudio){
 return
 }
 //
-var endGame = function(){
+var endGame = function(result){
 	pauseAudio('theme');
 	resetAudio('theme');
 	clearInterval(myinterval);
 	gameover=true;
 	$("input").prop('disabled', true);
-	$("#Wec").addClass("Wecout");
-
+	if(result !== 'win'){
+		$("#Wec").addClass("Wecout");
+	}else{
+		$("#win").addClass("winon");
+		
+	}
 }
 /* **** Event Listeners/Handlers ****  */
